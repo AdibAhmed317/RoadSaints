@@ -103,8 +103,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\WishlistController.cs" />
     <Compile Include="DB Config\Categories.cs">
       <DependentUpon>RoadSaintsDB.tt</DependentUpon>
     </Compile>
@@ -152,7 +155,10 @@
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\WishlistModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CustomersRepo.cs" />
     <Compile Include="Repository\ProductsRepo.cs" />
+    <Compile Include="Repository\ShoppingCartRepo.cs" />
+    <Compile Include="Repository\WishlistRepo.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DB Config\RoadSaintsDB.edmx">
