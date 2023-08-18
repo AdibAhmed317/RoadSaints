@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2c8e59c532414eb28ba13cb1fd200049" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Categories" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Customers" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Order_Details" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Orders" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Products" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Shopping_Cart" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Wishlist" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK__Products__catego__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Orders__customer__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Shopping___custo__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Wishlist__custom__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Order_Det__order__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Order_Det__produ__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Shopping___produ__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK__Wishlist__produc__49C3F6B7" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
