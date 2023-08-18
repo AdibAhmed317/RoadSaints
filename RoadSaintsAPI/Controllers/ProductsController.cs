@@ -9,110 +9,100 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using RoadSaintsAPI.DB_Config;
+using RoadSaintsAPI.Models;
+using RoadSaintsAPI.Repository;
 
 namespace RoadSaintsAPI.Controllers
 {
+    [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
-        private Bike_AccessoriesEntities db = new Bike_AccessoriesEntities();
-
-        // GET: api/Products
-        public IQueryable<Products> GetProducts()
+        [HttpPost]
+        [Route("addproduct")]
+        public IHttpActionResult AddProduct([FromBody] ProductsModel product)
         {
-            return db.Products;
+            ProductsRepo productRepo = new ProductsRepo();
+            if (product == null)
+            {
+                return BadRequest("Product data is null.");
+            }
+
+            bool isAdded = productRepo.AddProduct(product);
+
+            if (isAdded)
+            {
+                return Ok("Product added successfully.");
+            }
+            else
+            {
+                return InternalServerError();
+            }
         }
 
-        // GET: api/Products/5
-        [ResponseType(typeof(Products))]
-        public IHttpActionResult GetProducts(int id)
+        [HttpGet]
+        [Route("allproducts")]
+        public IHttpActionResult GetAllProducts()
         {
-            Products products = db.Products.Find(id);
-            if (products == null)
+            ProductsRepo productRepo = new ProductsRepo();
+            List<ProductsModel> products = productRepo.GetAllData();
+            if (products == null || products.Count == 0)
             {
                 return NotFound();
             }
-
             return Ok(products);
         }
 
-        // PUT: api/Products/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProducts(int id, Products products)
+        [HttpGet]
+        [Route("details/{productId}")]
+        public IHttpActionResult GetProductById(int productId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != products.product_id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(products).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProductsExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Products
-        [ResponseType(typeof(Products))]
-        public IHttpActionResult PostProducts(Products products)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.Products.Add(products);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = products.product_id }, products);
-        }
-
-        // DELETE: api/Products/5
-        [ResponseType(typeof(Products))]
-        public IHttpActionResult DeleteProducts(int id)
-        {
-            Products products = db.Products.Find(id);
-            if (products == null)
+            ProductsRepo productRepo = new ProductsRepo();
+            ProductsModel product = productRepo.GetProductById(productId);
+            if (product == null)
             {
                 return NotFound();
             }
-
-            db.Products.Remove(products);
-            db.SaveChanges();
-
-            return Ok(products);
+            return Ok(product);
         }
 
-        protected override void Dispose(bool disposing)
+        [HttpPut]
+        [Route("update/{productId}")]
+        public IHttpActionResult UpdateProductById(int productId, [FromBody] ProductsModel product)
         {
-            if (disposing)
+            ProductsRepo productRepo = new ProductsRepo();
+
+            if (product == null)
             {
-                db.Dispose();
+                return BadRequest("Product data is null.");
             }
-            base.Dispose(disposing);
+
+            bool isUpdated = productRepo.UpdateProductById(productId, product);
+
+            if (isUpdated)
+            {
+                return Ok("Product updated successfully.");
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
-        private bool ProductsExists(int id)
+        [HttpDelete]
+        [Route("deleteproduct/{productId}")]
+        public IHttpActionResult DeleteProductById(int productId)
         {
-            return db.Products.Count(e => e.product_id == id) > 0;
+            ProductsRepo productRepo = new ProductsRepo();
+            bool isDeleted = productRepo.DeleteProductById(productId);
+
+            if (isDeleted)
+            {
+                return Ok("Product deleted successfully.");
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
