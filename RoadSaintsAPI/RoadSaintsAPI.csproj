@@ -103,6 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="CombinedOrderData.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DB Config\Categories.cs">
@@ -152,6 +155,8 @@
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\WishlistModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CategoryRepo.cs" />
+    <Compile Include="Repository\OrderRepo.cs" />
     <Compile Include="Repository\ProductsRepo.cs" />
   </ItemGroup>
   <ItemGroup>
