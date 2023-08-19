@@ -12,7 +12,7 @@ namespace RoadSaintsAPI.Repository
     {
         public bool AddProduct(ProductsModel product)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var newProduct = new Products
                 {
@@ -33,7 +33,7 @@ namespace RoadSaintsAPI.Repository
 
         public List<ProductsModel> GetAllData()
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var result = context.Products.Select(x => new ProductsModel()
                 {
@@ -56,7 +56,7 @@ namespace RoadSaintsAPI.Repository
 
         public ProductsModel GetProductById(int productId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var productEntity = context.Products.FirstOrDefault(p => p.product_id == productId);
                 if (productEntity == null)
@@ -85,7 +85,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool UpdateProductById(int productId, ProductsModel product)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingProduct = context.Products.FirstOrDefault(p => p.product_id == productId);
                 if (existingProduct != null)
@@ -110,7 +110,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool DeleteProductById(int productId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingProduct = context.Products.FirstOrDefault(p => p.product_id == productId);
                 if (existingProduct == null)

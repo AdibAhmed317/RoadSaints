@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Security;
+using RoadSaintsAPI.DB_Config;
 using RoadSaintsAPI.Models;
 using RoadSaintsAPI.Repository;
 
 namespace RoadSaintsAPI.Controllers
 {
+    [EnableCors(origins:"*", headers:"*", methods:"*")]
     [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
@@ -32,6 +37,27 @@ namespace RoadSaintsAPI.Controllers
             else
             {
                 return InternalServerError();
+            }
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public IHttpActionResult Login(CustomersModel model)
+        {
+            CustomersRepo customersRepo = new CustomersRepo();
+
+            using (var context = new Bike_AccessoriesEntities1())
+            {
+                bool isAuthentic = context.Customers.Any(u => u.email == model.Email && u.password == model.Password);
+                if (isAuthentic)
+                {
+                    FormsAuthentication.SetAuthCookie(model.Email, false);
+                    var find = context.Customers.FirstOrDefault(u => u.email == model.Email);
+
+                    CustomersModel customer = customersRepo.GetCustomerById(find.customer_id);
+                    return Ok(customer);
+                }
+                return NotFound();
             }
         }
 

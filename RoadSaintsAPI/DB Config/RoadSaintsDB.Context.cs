@@ -13,10 +13,10 @@ namespace RoadSaintsAPI.DB_Config
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Bike_AccessoriesEntities : DbContext
+    public partial class Bike_AccessoriesEntities1 : DbContext
     {
-        public Bike_AccessoriesEntities()
-            : base("name=Bike_AccessoriesEntities")
+        public Bike_AccessoriesEntities1()
+            : base("name=Bike_AccessoriesEntities1")
         {
         }
     

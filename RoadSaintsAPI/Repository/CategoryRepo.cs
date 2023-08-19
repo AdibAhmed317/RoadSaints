@@ -11,7 +11,7 @@ namespace RoadSaintsAPI.Repository
     {
         public List<CategoriesModel> GetCategories()
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var result = context.Categories.Select(x => new CategoriesModel()
                 {
@@ -26,7 +26,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool AddCategory(CategoriesModel category)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var newCategory = new Categories
                 {

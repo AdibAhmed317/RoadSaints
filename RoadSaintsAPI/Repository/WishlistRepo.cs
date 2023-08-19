@@ -11,7 +11,7 @@ namespace RoadSaintsAPI.Repository
     {
         public bool AddToWishlist(WishlistModel wishlistItem)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var newWishlistItem = new Wishlist
                 {
@@ -29,7 +29,7 @@ namespace RoadSaintsAPI.Repository
 
         public List<WishlistModel> GetAllWishlistItems()
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var result = context.Wishlist.Select(x => new WishlistModel()
                 {
@@ -44,7 +44,7 @@ namespace RoadSaintsAPI.Repository
 
         public WishlistModel GetWishlistItemById(int wishlistItemId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var wishlistItemEntity = context.Wishlist.FirstOrDefault(p => p.wishlist_id == wishlistItemId);
                 if (wishlistItemEntity == null)
@@ -65,7 +65,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool DeleteWishlistItemById(int wishlistItemId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingWishlistItem = context.Wishlist.FirstOrDefault(p => p.wishlist_id == wishlistItemId);
                 if (existingWishlistItem == null)
@@ -82,7 +82,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool DeleteWishlistItemsByCustomerId(int customerId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingWishlistItems = context.Wishlist.Where(p => p.customer_id == customerId).ToList();
 

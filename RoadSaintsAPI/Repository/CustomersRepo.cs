@@ -12,7 +12,7 @@ namespace RoadSaintsAPI.Repository
     {
         public bool AddCustomer(CustomersModel customer)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var newCustomer = new Customers
                 {
@@ -34,7 +34,7 @@ namespace RoadSaintsAPI.Repository
 
         public List<CustomersModel> GetAllCustomers()
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var result = context.Customers.Select(x => new CustomersModel()
                 {
@@ -53,7 +53,7 @@ namespace RoadSaintsAPI.Repository
 
         public CustomersModel GetCustomerById(int customerId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var customerEntity = context.Customers.FirstOrDefault(c => c.customer_id == customerId);
                 if (customerEntity == null)
@@ -78,7 +78,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool UpdateCustomerById(int customerId, CustomersModel customer)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingCustomer = context.Customers.FirstOrDefault(c => c.customer_id == customerId);
                 if (existingCustomer != null)
@@ -102,7 +102,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool DeleteCustomerById(int customerId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingCustomer = context.Customers.FirstOrDefault(c => c.customer_id == customerId);
                 if (existingCustomer != null)

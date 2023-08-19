@@ -11,7 +11,7 @@ namespace RoadSaintsAPI.Repository
     {
         public bool AddOrderAndDetails(OrdersModel order, OrderDetailsModel orderDetails)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var newOrder = new Orders
                 {
@@ -42,7 +42,7 @@ namespace RoadSaintsAPI.Repository
 
         public List<OrdersModel> GetOrdersByCustomerId(int customerId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var orders = context.Orders
                     .Where(o => o.customer_id == customerId)
@@ -61,7 +61,7 @@ namespace RoadSaintsAPI.Repository
 
         public List<OrderDetailsModel> GetOrderDetailsByOrderId(int orderId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var orderDetails = context.Order_Details
                     .Where(od => od.order_id == orderId)

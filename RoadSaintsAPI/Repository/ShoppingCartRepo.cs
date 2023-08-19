@@ -12,7 +12,7 @@ namespace RoadSaintsAPI.Repository
     {
         public bool AddCart(ShoppingCartModel shoppingCart)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var newCart = new Shopping_Cart
                 {
@@ -31,7 +31,7 @@ namespace RoadSaintsAPI.Repository
 
         public List<ShoppingCartModel> GetAllCart()
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var result = context.Shopping_Cart.Select(x => new ShoppingCartModel()
                 {
@@ -47,7 +47,7 @@ namespace RoadSaintsAPI.Repository
 
         public ShoppingCartModel GetCartById(int shoppingCartId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var shoppingCartEntity = context.Shopping_Cart.FirstOrDefault(p => p.cart_id == shoppingCartId);
                 if (shoppingCartEntity == null)
@@ -69,7 +69,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool UpdateCartById(int shoppingCartId, ShoppingCartModel shoppingCart)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingCart = context.Shopping_Cart.FirstOrDefault(p => p.cart_id == shoppingCartId);
                 if (existingCart != null)
@@ -89,7 +89,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool DeleteCartById(int shoppingCartId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingCart = context.Shopping_Cart.FirstOrDefault(p => p.cart_id == shoppingCartId);
                 if (existingCart == null)
@@ -106,7 +106,7 @@ namespace RoadSaintsAPI.Repository
 
         public bool DeleteCartByCustomerId(int customerId)
         {
-            using (var context = new Bike_AccessoriesEntities())
+            using (var context = new Bike_AccessoriesEntities1())
             {
                 var existingCart = context.Shopping_Cart.Where(p => p.customer_id == customerId).ToList();
 
