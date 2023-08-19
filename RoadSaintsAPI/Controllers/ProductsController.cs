@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using RoadSaintsAPI.DB_Config;
 using RoadSaintsAPI.Models;
@@ -14,6 +15,7 @@ using RoadSaintsAPI.Repository;
 
 namespace RoadSaintsAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {

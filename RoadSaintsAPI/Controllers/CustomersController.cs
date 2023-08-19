@@ -61,6 +61,7 @@ namespace RoadSaintsAPI.Controllers
             }
         }
 
+        [AdminAuthorize]
         [HttpGet]
         [Route("allcustomers")]
         public IHttpActionResult GetAllCustomers()
