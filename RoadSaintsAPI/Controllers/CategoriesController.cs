@@ -25,6 +25,7 @@ namespace RoadSaintsAPI.Controllers
             return Ok(categories);
         }
 
+        [AdminAuthorization]
         [HttpPost]
         [Route("add-categories")]
         public IHttpActionResult AddCategory([FromBody] CategoriesModel category)

@@ -1,29 +1,19 @@
 ﻿using System;
-using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Web;
+using System.Web.Http;
 using System.Web.Http.Controllers;
-using System.Web.Http.Filters;
 
-public class AdminAuthorizeAttribute : Attribute, IAuthorizationFilter
+public class AdminAuthorizationAttribute : AuthorizeAttribute
 {
-    public bool AllowMultiple => false; // Implement the AllowMultiple property
-
-    public async Task<HttpResponseMessage> ExecuteAuthorizationFilterAsync(HttpActionContext actionContext, CancellationToken cancellationToken, Func<Task<HttpResponseMessage>> continuation)
+    protected override bool IsAuthorized(HttpActionContext actionContext)
     {
-        // Check if the user is authenticated and isAdmin is true
-        if (actionContext.RequestContext.Principal.Identity.IsAuthenticated)
+        var authCookie = HttpContext.Current.Request.Cookies["AuthCookie"];
+
+        if (authCookie != null && bool.TryParse(authCookie["IsAdmin"], out bool isAdmin))
         {
-            var isAdminClaim = ((ClaimsPrincipal)actionContext.RequestContext.Principal).FindFirst("isAdmin");
-            if (isAdminClaim != null && bool.TryParse(isAdminClaim.Value, out bool isAdminValue) && isAdminValue)
-            {
-                return await continuation();
-            }
+            return isAdmin;
         }
 
-        // Unauthorized access
-        return actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized access");
+        return false;
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Security;
@@ -51,17 +52,39 @@ namespace RoadSaintsAPI.Controllers
                 bool isAuthentic = context.Customers.Any(u => u.email == model.Email && u.password == model.Password);
                 if (isAuthentic)
                 {
-                    FormsAuthentication.SetAuthCookie(model.Email, false);
                     var find = context.Customers.FirstOrDefault(u => u.email == model.Email);
+                    bool isAdmin = (bool)find.isAdmin;
+
+                    HttpCookie authCookie = new HttpCookie("AuthCookie");
+                    authCookie.Values["IsAdmin"] = isAdmin.ToString();
+
+                    authCookie.Expires = DateTime.Now.AddDays(3);
+
+                    HttpContext.Current.Response.Cookies.Add(authCookie);
 
                     CustomersModel customer = customersRepo.GetCustomerById(find.customer_id);
+
                     return Ok(customer);
                 }
                 return NotFound();
             }
         }
 
-        [AdminAuthorize]
+        [HttpPost]
+        [Route("logout")]
+        public IHttpActionResult Logout()
+        {
+            var authCookie = new HttpCookie("AuthCookie")
+            {
+                Expires = DateTime.Now.AddDays(-3)
+            };
+
+            HttpContext.Current.Response.Cookies.Add(authCookie);
+
+            return Ok("Logged out successfully");
+        }
+
+        [AdminAuthorization]
         [HttpGet]
         [Route("allcustomers")]
         public IHttpActionResult GetAllCustomers()

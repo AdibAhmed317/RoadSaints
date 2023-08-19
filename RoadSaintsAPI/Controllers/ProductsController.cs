@@ -19,6 +19,7 @@ namespace RoadSaintsAPI.Controllers
     [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {
+        [AdminAuthorization]
         [HttpPost]
         [Route("addproduct")]
         public IHttpActionResult AddProduct([FromBody] ProductsModel product)
@@ -67,6 +68,7 @@ namespace RoadSaintsAPI.Controllers
             return Ok(product);
         }
 
+        [AdminAuthorization]
         [HttpPut]
         [Route("update/{productId}")]
         public IHttpActionResult UpdateProductById(int productId, [FromBody] ProductsModel product)
@@ -90,6 +92,7 @@ namespace RoadSaintsAPI.Controllers
             }
         }
 
+        [AdminAuthorization]
         [HttpDelete]
         [Route("deleteproduct/{productId}")]
         public IHttpActionResult DeleteProductById(int productId)
