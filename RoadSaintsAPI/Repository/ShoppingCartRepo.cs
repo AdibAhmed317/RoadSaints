@@ -45,27 +45,31 @@ namespace RoadSaintsAPI.Repository
             }
         }
 
-        public ShoppingCartModel GetCartById(int shoppingCartId)
+        public List<ShoppingCartModel> GetCartById(int CustomerId)
         {
             using (var context = new Bike_AccessoriesEntities1())
             {
-                var shoppingCartEntity = context.Shopping_Cart.FirstOrDefault(p => p.cart_id == shoppingCartId);
-                if (shoppingCartEntity == null)
-                {
-                    return null;
-                }
+                var shoppingCartEntities = context.Shopping_Cart
+                    .Where(p => p.customer_id == CustomerId)
+                    .ToList();
 
-                var shoppingCartModel = new ShoppingCartModel
+                var shoppingCartModels = shoppingCartEntities.Select(shoppingCartEntity => new ShoppingCartModel
                 {
                     CartId = shoppingCartEntity.cart_id,
                     CustomerId = shoppingCartEntity.customer_id,
                     ProductId = shoppingCartEntity.product_id,
                     Quantity = shoppingCartEntity.quantity,
-                };
+                    Product = new ProductsModel
+                    {
+                        ProductName = shoppingCartEntity.Products.product_name,
+                        Price = shoppingCartEntity.Products.price,
+                    }
+                }).ToList();
 
-                return shoppingCartModel;
+                return shoppingCartModels;
             }
         }
+
 
         public bool UpdateCartById(int shoppingCartId, ShoppingCartModel shoppingCart)
         {

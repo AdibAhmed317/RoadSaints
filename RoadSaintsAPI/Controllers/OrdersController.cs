@@ -15,7 +15,7 @@ namespace RoadSaintsAPI.Controllers
     public class OrdersController : ApiController
     {
         [HttpPost]
-        [Route("create-order")]
+        [Route("addorder")]
         public IHttpActionResult CreateOrderAndDetails([FromBody] CombinedOrderData combinedData)
         {
             if (combinedData == null || combinedData.Order == null || combinedData.OrderDetails == null)

@@ -57,6 +57,11 @@ namespace RoadSaintsAPI.Repository
                     WishlistId = wishlistItemEntity.wishlist_id,
                     CustomerId = wishlistItemEntity.customer_id,
                     ProductId = wishlistItemEntity.product_id,
+                    Product = new ProductsModel
+                    {
+                        ProductName = wishlistItemEntity.Products.product_name,
+                        Price = wishlistItemEntity.Products.price,
+                    }
                 };
 
                 return wishlistItemModel;

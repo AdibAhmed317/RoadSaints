@@ -56,11 +56,11 @@ namespace RoadSaintsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("details/{cartId}")]
-        public IHttpActionResult GetCartById(int cartId)
+        [Route("details/{customerId}")]
+        public IHttpActionResult GetCartById(int customerId)
         {
-            ShoppingCartRepo shoppingCartRepo = new ShoppingCartRepo();
-            ShoppingCartModel cart = shoppingCartRepo.GetCartById(cartId);
+            var shoppingCartRepo = new ShoppingCartRepo();
+            var cart = shoppingCartRepo.GetCartById(customerId);
             if (cart == null)
             {
                 return NotFound();
