@@ -125,5 +125,15 @@ namespace RoadSaintsAPI.Controllers
                 return NotFound();
             }
         }
+
+        [HttpGet]
+        [Route("itemcount/{customerId}")]
+        public IHttpActionResult GetCartItemCount(int customerId)
+        {
+            var shoppingCartRepo = new ShoppingCartRepo();
+            int itemCount = shoppingCartRepo.GetCartItemCount(customerId);
+            return Ok(itemCount);
+        }
+
     }
 }

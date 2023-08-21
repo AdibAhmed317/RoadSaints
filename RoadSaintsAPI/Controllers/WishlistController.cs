@@ -52,16 +52,16 @@ namespace RoadSaintsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("details/{wishlistItemId}")]
-        public IHttpActionResult GetWishlistItemById(int wishlistItemId)
+        [Route("details/{customerId}")]
+        public IHttpActionResult GetWishlistItemsByCustomerId(int customerId)
         {
             WishlistRepo wishlistRepo = new WishlistRepo();
-            WishlistModel wishlistItem = wishlistRepo.GetWishlistItemById(wishlistItemId);
-            if (wishlistItem == null)
+            List<WishlistModel> wishlistItems = wishlistRepo.GetWishlistItemsByCustomerId(customerId);
+            if (wishlistItems == null || wishlistItems.Count == 0)
             {
                 return NotFound();
             }
-            return Ok(wishlistItem);
+            return Ok(wishlistItems);
         }
 
         [HttpDelete]

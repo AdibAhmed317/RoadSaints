@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Thounaojam Emon\source\repos\RoadSaints\RoadSaintsAPI\DB Config\RoadSaintsDB.edmx'. 
+﻿// T4 code generation is enabled for model 'G:\RoadSaints-ASP.Net\RoadSaintsAPI\DB Config\RoadSaintsDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

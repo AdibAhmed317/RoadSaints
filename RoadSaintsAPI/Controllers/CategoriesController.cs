@@ -10,7 +10,7 @@ using System.Web.Http.Cors;
 
 namespace RoadSaintsAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
     [RoutePrefix("api/categories")]
     public class CategoriesController : ApiController
     {

@@ -42,17 +42,15 @@ namespace RoadSaintsAPI.Repository
             }
         }
 
-        public WishlistModel GetWishlistItemById(int wishlistItemId)
+        public List<WishlistModel> GetWishlistItemsByCustomerId(int customerId)
         {
             using (var context = new Bike_AccessoriesEntities1())
             {
-                var wishlistItemEntity = context.Wishlist.FirstOrDefault(p => p.wishlist_id == wishlistItemId);
-                if (wishlistItemEntity == null)
-                {
-                    return null;
-                }
+                var wishlistItemEntities = context.Wishlist
+                    .Where(w => w.customer_id == customerId)
+                    .ToList();
 
-                var wishlistItemModel = new WishlistModel
+                var wishlistItemModels = wishlistItemEntities.Select(wishlistItemEntity => new WishlistModel
                 {
                     WishlistId = wishlistItemEntity.wishlist_id,
                     CustomerId = wishlistItemEntity.customer_id,
@@ -62,11 +60,12 @@ namespace RoadSaintsAPI.Repository
                         ProductName = wishlistItemEntity.Products.product_name,
                         Price = wishlistItemEntity.Products.price,
                     }
-                };
+                }).ToList();
 
-                return wishlistItemModel;
+                return wishlistItemModels;
             }
         }
+
 
         public bool DeleteWishlistItemById(int wishlistItemId)
         {

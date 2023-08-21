@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Newtonsoft.Json.Linq;
 
 namespace RoadSaintsAPI.Controllers
 {
@@ -16,15 +17,20 @@ namespace RoadSaintsAPI.Controllers
     {
         [HttpPost]
         [Route("addorder")]
-        public IHttpActionResult CreateOrderAndDetails([FromBody] CombinedOrderData combinedData)
+        public IHttpActionResult CreateOrderAndDetails([FromBody] JObject combinedData)
         {
-            if (combinedData == null || combinedData.Order == null || combinedData.OrderDetails == null)
+            if (combinedData == null)
             {
                 return BadRequest("Invalid input data");
             }
 
+            dynamic dynamicData = combinedData.ToObject<dynamic>();
+
+            OrdersModel order = dynamicData.order.ToObject<OrdersModel>();
+            List<OrderDetailsModel> orderDetailsList = dynamicData.orderDetails.ToObject<List<OrderDetailsModel>>();
+
             OrderRepo orderRepo = new OrderRepo();
-            bool success = orderRepo.AddOrderAndDetails(combinedData.Order, combinedData.OrderDetails);
+            bool success = orderRepo.AddOrderAndDetails(order, orderDetailsList);
 
             if (success)
             {
@@ -35,25 +41,18 @@ namespace RoadSaintsAPI.Controllers
         }
 
         [HttpGet]
-        [Route("allorders/{customerId}")]
-        public IHttpActionResult GetOrdersByCustomerId(int customerId)
+        [Route("history/{customerId}")]
+        public IHttpActionResult GetOrderByCustomerId(int customerId)
         {
-            OrderRepo orderRepo = new OrderRepo();
-
-            List<OrdersModel> orders = orderRepo.GetOrdersByCustomerId(customerId);
-
-            return Ok(orders);
+            var orderRepo = new OrderRepo();
+            var order = orderRepo.GetOrderByCustomerId(customerId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return Ok(order);
         }
 
-        [HttpGet]
-        [Route("order-details/{orderId}")]
-        public IHttpActionResult GetOrderDetailsByOrderId(int orderId)
-        {
-            OrderRepo orderRepo = new OrderRepo();
-
-            List<OrderDetailsModel> orderDetails = orderRepo.GetOrderDetailsByOrderId(orderId);
-
-            return Ok(orderDetails);
-        }
+        
     }
 }

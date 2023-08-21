@@ -126,5 +126,15 @@ namespace RoadSaintsAPI.Repository
             }
         }
 
+        public int GetCartItemCount(int customerId)
+        {
+            using (var context = new Bike_AccessoriesEntities1())
+            {
+                int itemCount = context.Shopping_Cart.Count(cart => cart.customer_id == customerId);
+
+                return itemCount;
+            }
+        }
+
     }
 }
