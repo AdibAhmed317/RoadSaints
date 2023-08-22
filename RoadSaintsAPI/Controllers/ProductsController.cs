@@ -15,7 +15,7 @@ using RoadSaintsAPI.Repository;
 
 namespace RoadSaintsAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
     [RoutePrefix("api/products")]
     public class ProductsController : ApiController
     {

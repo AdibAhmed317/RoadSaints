@@ -14,7 +14,7 @@ using RoadSaintsAPI.Repository;
 
 namespace RoadSaintsAPI.Controllers
 {
-    [EnableCors(origins:"*", headers:"*", methods:"*")]
+    [EnableCors(origins:"*", headers:"*", methods:"*", SupportsCredentials = true)]
     [RoutePrefix("api/customers")]
     public class CustomersController : ApiController
     {
@@ -24,20 +24,27 @@ namespace RoadSaintsAPI.Controllers
         {
             CustomersRepo customersRepo = new CustomersRepo();
 
-            if (customer == null)
+            if(ModelState.IsValid)
             {
-                return BadRequest("Customer data is null.");
-            }
+                if (customer == null)
+                {
+                    return BadRequest("Customer data is null.");
+                }
 
-            bool isAdded = customersRepo.AddCustomer(customer);
+                bool isAdded = customersRepo.AddCustomer(customer);
 
-            if (isAdded)
-            {
-                return Ok("Customer added successfully.");
+                if (isAdded)
+                {
+                    return Ok("Customer added successfully.");
+                }
+                else
+                {
+                    return InternalServerError();
+                }
             }
             else
             {
-                return InternalServerError();
+                return BadRequest();
             }
         }
 

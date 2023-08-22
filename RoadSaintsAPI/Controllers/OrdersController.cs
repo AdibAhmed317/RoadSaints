@@ -11,7 +11,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RoadSaintsAPI.Controllers
 {
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*", SupportsCredentials = true)]
     [RoutePrefix("api/orders")]
     public class OrdersController : ApiController
     {
@@ -53,6 +53,45 @@ namespace RoadSaintsAPI.Controllers
             return Ok(order);
         }
 
-        
+
+        [HttpGet]
+        [Route("allorders/{customerId}")]
+        public IHttpActionResult GetOrdersByCustomerId(int customerId)
+        {
+            OrderRepo orderRepo = new OrderRepo();
+
+            List<OrdersModel> orders = orderRepo.GetOrdersByCustomerId2(customerId);
+
+            return Ok(orders);
+        }
+
+        [HttpGet]
+        [Route("allorders")]
+        public IHttpActionResult GetAllOrders()
+        {
+            OrderRepo orderRepo = new OrderRepo();
+
+            try
+            {
+                var orders = orderRepo.GetAllOrders();
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("order-details/{orderId}")]
+        public IHttpActionResult GetOrderDetailsByOrderId(int orderId)
+        {
+            OrderRepo orderRepo = new OrderRepo();
+
+            List<OrderDetailsModel> orderDetails = orderRepo.GetOrderDetailsByOrderId(orderId);
+
+            return Ok(orderDetails);
+        }
+
     }
 }

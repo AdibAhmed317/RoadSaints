@@ -21,7 +21,7 @@ namespace RoadSaintsAPI.Repository
                     price = product.Price,
                     stock_quantity = product.StockQuantity,
                     image_url = product.ImageUrl,
-                    category_id = product.Category?.CategoryId // Check if CategoryId is provided
+                    category_id = product.CategoryId,
                 };
 
                 context.Products.Add(newProduct);
